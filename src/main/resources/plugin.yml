@@ -1,0 +1,7 @@
+name: ErisLobby
+version: 1.0
+main: gg.eris.lobby.ErisLobby
+description: Lobby plugin for eris.gg
+authors: [AJFS Tech, Alfie Smith, Oliver Heamon]
+website: eris.gg
+depend: [ErisCommons]
