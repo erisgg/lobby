@@ -14,7 +14,7 @@ public class SpawnLocationCommand implements CommandProvider {
 
   @Override
   public Builder getCommand(CommandManager manager) {
-    return manager.newCommandBuilder("spawnlocation",
+    return manager.newCommandBuilder("sl",
         "Sets the spawn location for the given world name at the sender's position", "op")
         .noArgsHandler(context -> {
           Location spawnLocation = context.getSenderAsPlayer().getLocation();

@@ -1,7 +1,7 @@
 package gg.eris.lobby.listeners;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -14,19 +14,19 @@ public class FlyPearlEventListener implements Listener {
 
   @EventHandler
   public void onPlayerInteract(PlayerInteractEvent event) {
+    Player player = event.getPlayer();
+
     if ((event.getAction() == Action.RIGHT_CLICK_AIR
         || event.getAction() == Action.RIGHT_CLICK_BLOCK)
-        && event.getPlayer().getItemInHand().getType() == Material.ENDER_PEARL) {
+        && player.getItemInHand().getType() == Material.ENDER_PEARL) {
 
       event.setCancelled(true);
 
-      Location location = event.getPlayer().getEyeLocation();
+      Vector velocity = player.getEyeLocation().getDirection()
+          .multiply(PEARL_LAUNCH_MAGNITUDE);
 
-      Vector velocityBoost = location.getDirection().multiply(PEARL_LAUNCH_MAGNITUDE);
-
-      event.getPlayer().setVelocity(event.getPlayer().getVelocity().add(velocityBoost));
-
-      event.getPlayer().updateInventory();
+      player.setVelocity(velocity);
+      player.updateInventory();
     }
   }
 }

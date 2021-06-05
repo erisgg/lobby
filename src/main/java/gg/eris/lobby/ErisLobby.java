@@ -3,6 +3,7 @@ package gg.eris.lobby;
 import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.lobby.commands.SpawnLocationCommand;
 import gg.eris.lobby.listeners.FlyPearlEventListener;
+import gg.eris.lobby.listeners.LaunchPadListener;
 import gg.eris.lobby.listeners.LobbyEventListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,6 +23,7 @@ public final class ErisLobby extends JavaPlugin {
 
     manager.registerEvents(new LobbyEventListener((Location) getConfig().get("spawn-location")), this);
     manager.registerEvents(new FlyPearlEventListener(), this);
+    manager.registerEvents(new LaunchPadListener(this), this);
   }
 
   private void registerCommands() {
