@@ -8,7 +8,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
-public class FlyPearlEventListener implements Listener {
+public final class FlyPearlEventListener implements Listener {
 
   private static final double PEARL_LAUNCH_MAGNITUDE = 1.7;
 

@@ -6,15 +6,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 
-public final class LobbyEventListener implements Listener {
+public final class LobbyProtectionListener implements Listener {
 
-  private static final int VOID_DAMAGE_THRESHOLD = -64;
+  private static final int VOID_DEPTH_THRESHOLD = -64;
 
   private final Location spawnLocation;
 
-  public LobbyEventListener(Location spawnLocation) {
+  public LobbyProtectionListener(Location spawnLocation) {
     this.spawnLocation = spawnLocation;
   }
 
@@ -30,7 +32,8 @@ public final class LobbyEventListener implements Listener {
 
   @EventHandler
   public void onPlayerMoved(PlayerMoveEvent event) {
-    if (event.getPlayer().getLocation().getBlockY() < VOID_DAMAGE_THRESHOLD && spawnLocation != null) {
+    if (event.getPlayer().getLocation().getBlockY() < VOID_DEPTH_THRESHOLD
+        && spawnLocation != null) {
       event.getPlayer().teleport(spawnLocation);
     }
   }
@@ -39,4 +42,10 @@ public final class LobbyEventListener implements Listener {
   public void onSaturationLost(FoodLevelChangeEvent event) {
     event.setCancelled(true);
   }
+
+  @EventHandler
+  public void onItemDropped(PlayerDropItemEvent event) { event.setCancelled(true); }
+
+  @EventHandler
+  public void onItemPickedUp(PlayerPickupItemEvent event) { event.setCancelled(true); }
 }

@@ -21,6 +21,9 @@ public class SpawnLocationCommand implements CommandProvider {
 
           plugin.getConfig().set("spawn-location", spawnLocation);
           plugin.saveConfig();
+
+          context.getSenderAsPlayer().sendMessage(String.format("Set lobby spawn location to %s!", spawnLocation));
         });
+
   }
 }

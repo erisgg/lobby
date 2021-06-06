@@ -14,7 +14,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
-public class LaunchPadListener implements Listener {
+public final class LaunchPadListener implements Listener {
 
   private static final double PLATE_LAUNCH_LATERAL_MAGNITUDE = 2;
   private static final double PLATE_LAUNCH_VERTICAL_BOOST = 1.25;

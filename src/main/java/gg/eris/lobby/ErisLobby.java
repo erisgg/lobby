@@ -3,8 +3,9 @@ package gg.eris.lobby;
 import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.lobby.commands.SpawnLocationCommand;
 import gg.eris.lobby.listeners.FlyPearlEventListener;
+import gg.eris.lobby.listeners.GiveItemsListener;
 import gg.eris.lobby.listeners.LaunchPadListener;
-import gg.eris.lobby.listeners.LobbyEventListener;
+import gg.eris.lobby.listeners.LobbyProtectionListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
@@ -21,9 +22,10 @@ public final class ErisLobby extends JavaPlugin {
   private void registerEvents() {
     PluginManager manager = Bukkit.getServer().getPluginManager();
 
-    manager.registerEvents(new LobbyEventListener((Location) getConfig().get("spawn-location")), this);
+    manager.registerEvents(new LobbyProtectionListener((Location) getConfig().get("spawn-location")), this);
     manager.registerEvents(new FlyPearlEventListener(), this);
     manager.registerEvents(new LaunchPadListener(this), this);
+    manager.registerEvents(new GiveItemsListener(), this);
   }
 
   private void registerCommands() {
