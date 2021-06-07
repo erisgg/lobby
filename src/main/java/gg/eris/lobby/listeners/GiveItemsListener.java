@@ -1,5 +1,6 @@
 package gg.eris.lobby.listeners;
 
+import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,8 +16,10 @@ public final class GiveItemsListener implements Listener {
 
     player.getInventory().clear();
 
-    player.getInventory().setItem(8,
-        new ItemBuilder(Material.ENDER_PEARL).withName("&6&lFly Pearl &8(Right Click to Fly!)")
-            .build());
+    player.getInventory().setItem(0, new ItemBuilder(Material.COMPASS)
+        .withName(CC.GREEN.bold() + "Game Selector" + CC.DARK_GRAY + " (Right Click to Open)").build());
+
+    player.getInventory().setItem(8, new ItemBuilder(Material.ENDER_PEARL)
+        .withName(CC.GOLD.bold() + "Fly Pearl" + CC.DARK_GRAY + " (Right Click to Fly!)").build());
   }
 }

@@ -6,6 +6,7 @@ import gg.eris.lobby.listeners.FlyPearlEventListener;
 import gg.eris.lobby.listeners.GiveItemsListener;
 import gg.eris.lobby.listeners.LaunchPadListener;
 import gg.eris.lobby.listeners.LobbyProtectionListener;
+import gg.eris.lobby.listeners.ScoreboardListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
@@ -26,6 +27,7 @@ public final class ErisLobby extends JavaPlugin {
     manager.registerEvents(new FlyPearlEventListener(), this);
     manager.registerEvents(new LaunchPadListener(this), this);
     manager.registerEvents(new GiveItemsListener(), this);
+    manager.registerEvents(new ScoreboardListener(), this);
   }
 
   private void registerCommands() {
