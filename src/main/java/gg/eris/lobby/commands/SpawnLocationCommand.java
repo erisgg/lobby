@@ -3,6 +3,7 @@ package gg.eris.lobby.commands;
 import gg.eris.commons.bukkit.command.Command.Builder;
 import gg.eris.commons.bukkit.command.CommandManager;
 import gg.eris.commons.bukkit.command.CommandProvider;
+import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.lobby.ErisLobby;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
@@ -15,7 +16,7 @@ public class SpawnLocationCommand implements CommandProvider {
   @Override
   public Builder getCommand(CommandManager manager) {
     return manager.newCommandBuilder("sl",
-        "Sets the spawn location for the given world name at the sender's position", "op")
+        "Sets the spawn location for the given world name at the sender's position", Identifier.of("eris", "admin"))
         .noArgsHandler(context -> {
           Location spawnLocation = context.getSenderAsPlayer().getLocation();
 

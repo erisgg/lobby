@@ -5,7 +5,7 @@ import gg.eris.commons.bukkit.util.SidebarBuilder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import org.bukkit.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -24,7 +24,9 @@ public final class ScoreboardListener implements Listener {
   public void onPlayerJoin(PlayerJoinEvent event) {
 
     Scoreboard newScoreboard = new SidebarBuilder(CC.GOLD.bold() + "- ERIS.GG -")
-        .withLine(CC.AQUA + event.getPlayer().getName())
+        .withEmptyLine()
+        .withLine(CC.GOLD + "Players online: " + CC.WHITE + Bukkit.getServer().getOnlinePlayers().size())
+        .withEmptyLine()
         .build();
 
     event.getPlayer().setScoreboard(newScoreboard);
@@ -33,6 +35,6 @@ public final class ScoreboardListener implements Listener {
 
   @EventHandler
   public void onPlayerLeave(PlayerQuitEvent event) {
-    scoreboards.remove(event.getPlayer().getUniqueId());
+      scoreboards.remove(event.getPlayer().getUniqueId());
   }
 }
