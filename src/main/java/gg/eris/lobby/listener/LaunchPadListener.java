@@ -55,9 +55,7 @@ public final class LaunchPadListener implements Listener {
 
       this.cooldowns.put(player.getUniqueId(), true);
 
-
       Vector velocity = player.getLocation().getDirection();
-
       velocity.setX(velocity.getX() * PLATE_LAUNCH_LATERAL_MAGNITUDE);
       velocity.setY(
           Math.max(PLATE_LAUNCH_VERTICAL_BOOST, velocity.getY() + PLATE_LAUNCH_VERTICAL_BOOST));
