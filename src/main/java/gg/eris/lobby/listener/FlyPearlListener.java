@@ -1,4 +1,4 @@
-package gg.eris.lobby.listeners;
+package gg.eris.lobby.listener;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -8,7 +8,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.Vector;
 
-public final class FlyPearlEventListener implements Listener {
+public final class FlyPearlListener implements Listener {
 
   private static final double PEARL_LAUNCH_MAGNITUDE = 1.7;
 

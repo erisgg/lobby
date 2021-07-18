@@ -1,4 +1,4 @@
-package gg.eris.lobby.listeners;
+package gg.eris.lobby.listener;
 
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.SidebarBuilder;
@@ -17,24 +17,24 @@ public final class ScoreboardListener implements Listener {
   private final Map<UUID, Scoreboard> scoreboards;
 
   public ScoreboardListener() {
-    scoreboards = new HashMap<>();
+    this.scoreboards = new HashMap<>();
   }
 
   @EventHandler
   public void onPlayerJoin(PlayerJoinEvent event) {
-
     Scoreboard newScoreboard = new SidebarBuilder(CC.GOLD.bold() + "- ERIS.GG -")
         .withEmptyLine()
-        .withLine(CC.GOLD + "Players online: " + CC.WHITE + Bukkit.getServer().getOnlinePlayers().size())
+        .withLine(
+            CC.GOLD + "Players online: " + CC.WHITE + Bukkit.getServer().getOnlinePlayers().size())
         .withEmptyLine()
         .build();
 
     event.getPlayer().setScoreboard(newScoreboard);
-    scoreboards.put(event.getPlayer().getUniqueId(), newScoreboard);
+    this.scoreboards.put(event.getPlayer().getUniqueId(), newScoreboard);
   }
 
   @EventHandler
   public void onPlayerLeave(PlayerQuitEvent event) {
-      scoreboards.remove(event.getPlayer().getUniqueId());
+    this.scoreboards.remove(event.getPlayer().getUniqueId());
   }
 }
