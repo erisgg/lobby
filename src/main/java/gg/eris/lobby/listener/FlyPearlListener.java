@@ -10,6 +10,7 @@ import org.bukkit.util.Vector;
 
 public final class FlyPearlListener implements Listener {
 
+  private static final Vector Y_ADDENDUM = new Vector(0, 1.2, 0);
   private static final double PEARL_LAUNCH_MAGNITUDE = 1.7;
 
   @EventHandler
@@ -23,7 +24,7 @@ public final class FlyPearlListener implements Listener {
       event.setCancelled(true);
 
       Vector velocity = player.getEyeLocation().getDirection()
-          .multiply(PEARL_LAUNCH_MAGNITUDE);
+          .multiply(PEARL_LAUNCH_MAGNITUDE).add(Y_ADDENDUM);
 
       player.setVelocity(velocity);
       player.updateInventory();
