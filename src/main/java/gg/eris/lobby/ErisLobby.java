@@ -3,6 +3,7 @@ package gg.eris.lobby;
 import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.lobby.command.SpawnLocationCommand;
 import gg.eris.lobby.listener.FlyPearlListener;
+import gg.eris.lobby.listener.MobSpawnListener;
 import gg.eris.lobby.listener.PlayerJoinListener;
 import gg.eris.lobby.listener.LaunchPadListener;
 import gg.eris.lobby.listener.LobbyProtectionListener;
@@ -28,6 +29,7 @@ public final class ErisLobby extends JavaPlugin {
     manager.registerEvents(new LaunchPadListener(this), this);
     manager.registerEvents(new PlayerJoinListener(), this);
     manager.registerEvents(new ScoreboardListener(), this);
+    manager.registerEvents(new MobSpawnListener(), this);
   }
 
   private void registerCommands() {

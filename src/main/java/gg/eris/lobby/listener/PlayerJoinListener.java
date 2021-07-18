@@ -23,6 +23,6 @@ public final class PlayerJoinListener implements Listener {
     Player player = event.getPlayer();
     PlayerUtil.resetPlayer(player);
     player.getInventory().setItem(1, FLY_PEARL);
-    player.getInventory().setItem(5, GAME_SELECTOR);
+    player.getInventory().setItem(4, GAME_SELECTOR);
   }
 }
