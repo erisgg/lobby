@@ -41,9 +41,12 @@ public final class LaunchPadListener implements Listener {
   @EventHandler
   public void onPlayerInteract(PlayerInteractEvent event) {
     Player player = event.getPlayer();
-
     if (event.getAction() == Action.PHYSICAL && event.getClickedBlock() != null
         && event.getClickedBlock().getType() == Material.GOLD_PLATE) {
+
+      event.setCancelled(true);
+      event.setUseInteractedBlock(Result.DENY);
+      event.setUseItemInHand(Result.DENY);
 
       Boolean cooldown = this.cooldowns.getIfPresent(player.getUniqueId());
       if (cooldown != null) {
@@ -52,9 +55,6 @@ public final class LaunchPadListener implements Listener {
 
       this.cooldowns.put(player.getUniqueId(), true);
 
-      event.setCancelled(true);
-      event.setUseInteractedBlock(Result.DENY);
-      event.setUseItemInHand(Result.DENY);
 
       Vector velocity = player.getLocation().getDirection();
 
