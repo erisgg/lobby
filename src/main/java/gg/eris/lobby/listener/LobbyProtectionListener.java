@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.weather.WeatherChangeEvent;
 
 public final class LobbyProtectionListener implements Listener {
 
@@ -22,6 +23,13 @@ public final class LobbyProtectionListener implements Listener {
 
   public LobbyProtectionListener(Location spawnLocation) {
     this.spawnLocation = spawnLocation;
+  }
+
+  @EventHandler
+  public void onWeatherChange(WeatherChangeEvent event) {
+    if (event.toWeatherState()) {
+      event.setCancelled(true);
+    }
   }
 
   @EventHandler

@@ -66,9 +66,9 @@ public final class LaunchPadListener implements Listener {
         player.playSound(player.getLocation(), Sound.FIREWORK_LAUNCH, 1, 1);
 
         // Particles
-        Location origin = event.getClickedBlock().getLocation().add(new Vector(0.5, 0.5, 0.5));
-        ParticleUtil.spawnSpiralForPlayer(EnumParticle.FLAME, false, PARTICLES_PER_POINT, origin,
-            SPIRAL_POINT_COUNT, SPIRAL_HEIGHT, SPIRAL_RADIUS, SPIRAL_ROTATIONS, player);
+        //Location origin = event.getClickedBlock().getLocation().add(new Vector(0.5, 0.5, 0.5));
+        //ParticleUtil.spawnSpiralForPlayer(EnumParticle.FLAME, false, PARTICLES_PER_POINT, origin,
+           // SPIRAL_POINT_COUNT, SPIRAL_HEIGHT, SPIRAL_RADIUS, SPIRAL_ROTATIONS, player);
       }, 1);
     }
   }
