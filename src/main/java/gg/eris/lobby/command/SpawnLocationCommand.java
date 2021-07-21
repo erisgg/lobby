@@ -7,6 +7,7 @@ import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.lobby.ErisLobby;
 import gg.eris.lobby.ErisLobbyIdentifiers;
+import gg.eris.lobby.listener.LobbyProtectionListener;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -15,6 +16,7 @@ import org.bukkit.entity.Player;
 public class SpawnLocationCommand implements CommandProvider {
 
   private final ErisLobby plugin;
+  private final LobbyProtectionListener lobbyProtectionListener;
 
   @Override
   public Builder getCommand(CommandManager manager) {
@@ -26,8 +28,15 @@ public class SpawnLocationCommand implements CommandProvider {
       Player player = context.getSenderAsPlayer();
       Location spawnLocation = player.getLocation();
 
-      this.plugin.getConfig().set("spawn-location", spawnLocation);
+      this.plugin.getConfig().set("spawn-location.world", spawnLocation.getWorld().getName());
+      this.plugin.getConfig().set("spawn-location.x", spawnLocation.getX());
+      this.plugin.getConfig().set("spawn-location.y", spawnLocation.getY());
+      this.plugin.getConfig().set("spawn-location.z", spawnLocation.getZ());
+      this.plugin.getConfig().set("spawn-location.yaw", spawnLocation.getYaw());
+      this.plugin.getConfig().set("spawn-location.pitch", spawnLocation.getPitch());
       this.plugin.saveConfig();
+
+      lobbyProtectionListener.setSpawnLocation(spawnLocation);
 
       TextController.send(TextController.builder(
           "Spawn location updated",

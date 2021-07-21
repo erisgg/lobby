@@ -1,6 +1,14 @@
 package gg.eris.lobby.listener;
 
+import gg.eris.lobby.ErisLobby;
+import lombok.Setter;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
@@ -19,10 +27,32 @@ public final class LobbyProtectionListener implements Listener {
 
   private static final int VOID_DEPTH_THRESHOLD = -64;
 
-  private final Location spawnLocation;
+  @Setter
+  private Location spawnLocation;
 
-  public LobbyProtectionListener(Location spawnLocation) {
-    this.spawnLocation = spawnLocation;
+  public LobbyProtectionListener(ErisLobby plugin) {
+    FileConfiguration config = plugin.getConfig();
+
+    if (config.isConfigurationSection("spawn-location")) {
+      ConfigurationSection section = config.getConfigurationSection("spawn-location");
+      this.spawnLocation = new Location(
+          Bukkit.getWorld(section.getString("world")),
+          section.getDouble("x"),
+          section.getDouble("y"),
+          section.getDouble("z"),
+          (float) section.getDouble("yaw"),
+          (float) section.getDouble("pitch")
+      );
+    }
+
+    if (this.spawnLocation != null) {
+      World world = spawnLocation.getWorld();
+      Bukkit.getScheduler().runTaskTimer(plugin, () -> world.setTime(6000), 0L, 1L);
+      world.setAutoSave(false);
+    } else {
+      Bukkit.getLogger().warning("Invalid world supplied: " + config.getString("world"));
+      Bukkit.getServer().shutdown();
+    }
   }
 
   @EventHandler
@@ -43,7 +73,9 @@ public final class LobbyProtectionListener implements Listener {
 
   @EventHandler
   public void onEntityDamage(EntityDamageEvent event) {
-    event.setCancelled(true);
+    if (!(event.getEntity() instanceof LivingEntity) || event.getEntityType() == EntityType.PLAYER) {
+      event.setCancelled(true);
+    }
   }
 
   @EventHandler
