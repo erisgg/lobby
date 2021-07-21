@@ -7,13 +7,13 @@ import gg.eris.commons.bukkit.scoreboard.ScoreboardController;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.lobby.command.SpawnLocationCommand;
-import gg.eris.lobby.listener.FlyPearlListener;
+import gg.eris.lobby.listener.ItemListener;
 import gg.eris.lobby.listener.LaunchPadListener;
 import gg.eris.lobby.listener.LobbyProtectionListener;
 import gg.eris.lobby.listener.MobSpawnListener;
 import gg.eris.lobby.listener.PlayerJoinListener;
-import gg.eris.lobby.listener.RightClickCompassListener;
 import lombok.Getter;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,11 +39,10 @@ public final class ErisLobby extends JavaPlugin {
     pluginManager
         .registerEvents(lobbyProtectionListener = new LobbyProtectionListener(this),
             this);
-    pluginManager.registerEvents(new FlyPearlListener(), this);
     pluginManager.registerEvents(new LaunchPadListener(this), this);
     pluginManager.registerEvents(new PlayerJoinListener(this), this);
     pluginManager.registerEvents(new MobSpawnListener(), this);
-    pluginManager.registerEvents(new RightClickCompassListener(), this);
+    pluginManager.registerEvents(new ItemListener(this), this);
 
     commandManager.registerCommands(new SpawnLocationCommand(this, lobbyProtectionListener));
 

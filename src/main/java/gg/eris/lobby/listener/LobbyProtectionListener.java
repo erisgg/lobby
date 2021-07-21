@@ -17,11 +17,14 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.inventory.PlayerInventory;
 
 public final class LobbyProtectionListener implements Listener {
 
@@ -107,4 +110,17 @@ public final class LobbyProtectionListener implements Listener {
   public void onItemPickedUp(PlayerPickupItemEvent event) {
     event.setCancelled(true);
   }
+
+  @EventHandler
+  public void onInventoryClick(InventoryClickEvent event) {
+    if (event.getInventory() instanceof PlayerInventory) {
+      event.setCancelled(true);
+    }
+  }
+
+  @EventHandler
+  public void onInventoryDrag(InventoryDragEvent event) {
+    event.setCancelled(true);
+  }
+
 }
