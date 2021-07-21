@@ -2,17 +2,18 @@ package gg.eris.lobby;
 
 import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.commons.bukkit.command.CommandManager;
+import gg.eris.commons.bukkit.menu.Menu;
+import gg.eris.commons.bukkit.menu.MenuItem;
+import gg.eris.commons.bukkit.menu.item.ActionlessMenuItem;
 import gg.eris.lobby.command.SpawnLocationCommand;
-import gg.eris.lobby.listener.FlyPearlListener;
-import gg.eris.lobby.listener.LaunchPadListener;
-import gg.eris.lobby.listener.LobbyProtectionListener;
-import gg.eris.lobby.listener.MobSpawnListener;
-import gg.eris.lobby.listener.PlayerJoinListener;
-import gg.eris.lobby.listener.ScoreboardListener;
+import gg.eris.lobby.listener.*;
+import gg.eris.lobby.menu.CompassMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -37,7 +38,7 @@ public final class ErisLobby extends JavaPlugin {
     pluginManager.registerEvents(new PlayerJoinListener(), this);
     pluginManager.registerEvents(new ScoreboardListener(), this);
     pluginManager.registerEvents(new MobSpawnListener(), this);
-
+    pluginManager.registerEvents(new RightClickCompassListener(), this);
     commandManager.registerCommands(new SpawnLocationCommand(this));
 
     World world = Bukkit.getWorld(config.getString("world"));
@@ -47,6 +48,7 @@ public final class ErisLobby extends JavaPlugin {
       Bukkit.getLogger().warning("Invalid world supplied: " + config.getString("world"));
       Bukkit.getServer().shutdown();
     }
+
   }
 
 }
