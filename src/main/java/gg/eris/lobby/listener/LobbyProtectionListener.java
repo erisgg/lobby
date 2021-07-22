@@ -1,11 +1,10 @@
 package gg.eris.lobby.listener;
 
+import gg.eris.erisspigot.event.entity.PlayerMoveBlockEvent;
 import gg.eris.lobby.ErisLobby;
-import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.WorldBorder;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
@@ -20,9 +19,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.PlayerInventory;
@@ -30,6 +29,7 @@ import org.bukkit.inventory.PlayerInventory;
 public final class LobbyProtectionListener implements Listener {
 
   private static final int VOID_DEPTH_THRESHOLD = -64;
+  private static final int SPAWN_SIZE = 400;
 
   private Location spawnLocation;
 
@@ -52,7 +52,6 @@ public final class LobbyProtectionListener implements Listener {
       World world = spawnLocation.getWorld();
       Bukkit.getScheduler().runTaskTimer(plugin, () -> world.setTime(6000), 0L, 1L);
       world.setAutoSave(false);
-      updateBorder();
     } else {
       Bukkit.getLogger().warning("Invalid world supplied: " + config.getString("world"));
       Bukkit.getServer().shutdown();
@@ -77,7 +76,8 @@ public final class LobbyProtectionListener implements Listener {
 
   @EventHandler
   public void onEntityDamage(EntityDamageEvent event) {
-    if (!(event.getEntity() instanceof LivingEntity) || event.getEntityType() == EntityType.PLAYER) {
+    if (!(event.getEntity() instanceof LivingEntity)
+        || event.getEntityType() == EntityType.PLAYER) {
       event.setCancelled(true);
     }
   }
@@ -88,10 +88,16 @@ public final class LobbyProtectionListener implements Listener {
   }
 
   @EventHandler
-  public void onPlayerMove(PlayerMoveEvent event) {
-    if (event.getPlayer().getLocation().getBlockY() < VOID_DEPTH_THRESHOLD
-        && this.spawnLocation != null) {
-      event.getPlayer().teleport(this.spawnLocation);
+  public void onPlayerMoveBlockEvent(PlayerMoveBlockEvent event) {
+    Player player = event.getPlayer();
+    if (this.spawnLocation != null && (
+        player.getLocation().getBlockY() < VOID_DEPTH_THRESHOLD
+            || Math.abs(player.getLocation().getBlockX() - this.spawnLocation.getBlockX())
+            > SPAWN_SIZE
+            || Math.abs(player.getLocation().getBlockZ() - this.spawnLocation.getBlockZ())
+            > SPAWN_SIZE)
+    ) {
+      player.teleport(this.spawnLocation);
     }
   }
 
@@ -124,15 +130,13 @@ public final class LobbyProtectionListener implements Listener {
     event.setCancelled(true);
   }
 
-  public void setSpawnLocation(Location spawnLocation) {
-    this.spawnLocation = spawnLocation;
-    updateBorder();
+  @EventHandler
+  public void onAchievementGet(PlayerAchievementAwardedEvent event) {
+    event.setCancelled(true);
   }
 
-  public void updateBorder() {
-    WorldBorder border = this.spawnLocation.getWorld().getWorldBorder();
-    border.setSize(1000);
-    border.setCenter(this.spawnLocation);
+  public void setSpawnLocation(Location spawnLocation) {
+    this.spawnLocation = spawnLocation;
   }
 
 }
