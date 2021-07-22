@@ -1,5 +1,6 @@
 package gg.eris.lobby;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.commons.bukkit.command.CommandManager;
 import gg.eris.commons.bukkit.scoreboard.Scoreboard;
@@ -13,7 +14,6 @@ import gg.eris.lobby.listener.LobbyProtectionListener;
 import gg.eris.lobby.listener.MobSpawnListener;
 import gg.eris.lobby.listener.PlayerJoinListener;
 import lombok.Getter;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;

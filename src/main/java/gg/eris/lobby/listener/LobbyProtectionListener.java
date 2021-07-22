@@ -1,6 +1,5 @@
 package gg.eris.lobby.listener;
 
-import gg.eris.erisspigot.event.entity.PlayerMoveBlockEvent;
 import gg.eris.lobby.ErisLobby;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,6 +21,7 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.PlayerInventory;
@@ -88,13 +88,13 @@ public final class LobbyProtectionListener implements Listener {
   }
 
   @EventHandler
-  public void onPlayerMoveBlockEvent(PlayerMoveBlockEvent event) {
+  public void onPlayerMoveBlockEvent(PlayerMoveEvent event) {
     Player player = event.getPlayer();
-    if (this.spawnLocation != null && (
+    if (event.hasChangedBlock() && this.spawnLocation != null && (
         player.getLocation().getBlockY() < VOID_DEPTH_THRESHOLD
-            || Math.abs(player.getLocation().getBlockX() - this.spawnLocation.getBlockX())
+            || Math.abs(event.getTo().getBlockX() - this.spawnLocation.getBlockX())
             > SPAWN_SIZE
-            || Math.abs(player.getLocation().getBlockZ() - this.spawnLocation.getBlockZ())
+            || Math.abs(event.getTo().getBlockZ() - this.spawnLocation.getBlockZ())
             > SPAWN_SIZE)
     ) {
       player.teleport(this.spawnLocation);
