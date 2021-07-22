@@ -1,6 +1,5 @@
 package gg.eris.lobby;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.commons.bukkit.command.CommandManager;
 import gg.eris.commons.bukkit.scoreboard.Scoreboard;
