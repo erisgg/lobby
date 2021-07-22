@@ -88,7 +88,7 @@ public final class LobbyProtectionListener implements Listener {
   }
 
   @EventHandler
-  public void onPlayerMoveBlockEvent(PlayerMoveEvent event) {
+  public void onPlayerMoveEvent(PlayerMoveEvent event) {
     Player player = event.getPlayer();
     if (event.hasChangedBlock() && this.spawnLocation != null && (
         player.getLocation().getBlockY() < VOID_DEPTH_THRESHOLD
