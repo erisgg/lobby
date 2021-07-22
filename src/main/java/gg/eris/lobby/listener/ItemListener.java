@@ -57,7 +57,7 @@ public class ItemListener implements Listener {
           TextType.INFORMATION,
           Int2ObjectMaps.singleton(0, ClickEvent.of(ClickEvent.Action.OPEN_URL, STORE_URL)),
           Int2ObjectMaps.singleton(0, HoverEvent.of("<col=yellow>Click to open our store</col>")),
-          "Visit our store: <u><event=0>store.eris.gg</event></u>"
+          "Visit our store: <h><u><event=0>store.eris.gg</event></u></h>"
       );
     }
 

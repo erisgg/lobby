@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.WorldBorder;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
@@ -30,7 +31,6 @@ public final class LobbyProtectionListener implements Listener {
 
   private static final int VOID_DEPTH_THRESHOLD = -64;
 
-  @Setter
   private Location spawnLocation;
 
   public LobbyProtectionListener(ErisLobby plugin) {
@@ -52,6 +52,7 @@ public final class LobbyProtectionListener implements Listener {
       World world = spawnLocation.getWorld();
       Bukkit.getScheduler().runTaskTimer(plugin, () -> world.setTime(6000), 0L, 1L);
       world.setAutoSave(false);
+      updateBorder();
     } else {
       Bukkit.getLogger().warning("Invalid world supplied: " + config.getString("world"));
       Bukkit.getServer().shutdown();
@@ -121,6 +122,17 @@ public final class LobbyProtectionListener implements Listener {
   @EventHandler
   public void onInventoryDrag(InventoryDragEvent event) {
     event.setCancelled(true);
+  }
+
+  public void setSpawnLocation(Location spawnLocation) {
+    this.spawnLocation = spawnLocation;
+    updateBorder();
+  }
+
+  public void updateBorder() {
+    WorldBorder border = this.spawnLocation.getWorld().getWorldBorder();
+    border.setSize(1000);
+    border.setCenter(this.spawnLocation);
   }
 
 }

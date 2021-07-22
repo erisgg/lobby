@@ -43,7 +43,6 @@ public final class ErisLobby extends JavaPlugin {
     pluginManager.registerEvents(new PlayerJoinListener(this), this);
     pluginManager.registerEvents(new MobSpawnListener(), this);
     pluginManager.registerEvents(new ItemListener(this), this);
-
     commandManager.registerCommands(new SpawnLocationCommand(this, lobbyProtectionListener));
 
     this.scoreboard = scoreboardController.createScoreboard(
