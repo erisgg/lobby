@@ -38,10 +38,11 @@ public class SpawnLocationCommand implements CommandProvider {
 
       lobbyProtectionListener.setSpawnLocation(spawnLocation);
 
-      TextController.send(TextController.builder(
-          "Spawn location updated",
-          TextType.SUCCESS
-      ), player);
+      TextController.send(
+          player,
+          TextType.SUCCESS,
+          "Spawn location updated"
+      );
     }, true);
 
   }

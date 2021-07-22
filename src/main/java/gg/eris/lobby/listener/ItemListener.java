@@ -1,15 +1,13 @@
 package gg.eris.lobby.listener;
 
+import gg.eris.commons.bukkit.text.ClickEvent;
+import gg.eris.commons.bukkit.text.HoverEvent;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
-import gg.eris.commons.bukkit.util.CC;
 import gg.eris.lobby.ErisLobby;
 import gg.eris.lobby.menu.CompassMenu;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import lombok.RequiredArgsConstructor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -25,6 +23,7 @@ public class ItemListener implements Listener {
 
   private static final Vector Y_ADDENDUM = new Vector(0, 0.5, 0);
   private static final double PEARL_LAUNCH_MAGNITUDE = 2;
+  private static final String STORE_URL = "https://store.eris.gg";
 
   private final ErisLobby plugin;
 
@@ -53,17 +52,13 @@ public class ItemListener implements Listener {
       player.setVelocity(velocity);
       player.updateInventory();
     } else if (item.getType() == Material.CHEST) {
-      player.spigot().sendMessage(ComponentSerializer.parse("{\"text\":\"This is a test\"}"));
-      TextController.send(TextController.builder(
-          "Visit our store: <event=0>store.eris.gg</event>",
-          TextType.INFORMATION
-          ).withHoverEvent(
-          0,
-          new HoverEvent(
-              HoverEvent.Action.SHOW_TEXT,
-              new ComponentBuilder(CC.YELLOW + "Click to open our store").create())
-          ).withClickEvent(0, new ClickEvent(ClickEvent.Action.OPEN_URL, "https://store.eris.gg"))
-          , player);
+      TextController.send(
+          player,
+          TextType.INFORMATION,
+          Int2ObjectMaps.singleton(0, ClickEvent.of(ClickEvent.Action.OPEN_URL, STORE_URL)),
+          Int2ObjectMaps.singleton(0, HoverEvent.of("<col=yellow>Click to open our store</col>")),
+          "Visit our store: <u><event=0>store.eris.gg</event></u>"
+      );
     }
 
 
