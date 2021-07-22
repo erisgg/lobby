@@ -10,6 +10,8 @@ public class ErisLobbyIdentifiers {
 
   public static final Identifier SPAWN_LOCATION_PERMISSION = permission("spawnlocation");
 
+  public static final Identifier NPC_PLACEMENT_PERMISSION = permission("placenpc");
+
   private static Identifier permission(String name) {
     PermissionRegistry registry =
         Bukkit.getServicesManager()
