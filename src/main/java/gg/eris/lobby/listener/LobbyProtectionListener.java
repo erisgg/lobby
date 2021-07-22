@@ -29,7 +29,7 @@ import org.bukkit.inventory.PlayerInventory;
 public final class LobbyProtectionListener implements Listener {
 
   private static final int VOID_DEPTH_THRESHOLD = -64;
-  private static final int SPAWN_SIZE = 400;
+  private static final int SPAWN_SIZE = 300;
 
   private Location spawnLocation;
 
