@@ -37,8 +37,8 @@ public class ItemListener implements Listener {
     Player player = event.getPlayer();
     ItemStack item = event.getPlayer().getItemInHand();
 
-    if (item != null && item.getType() != Material.AIR) {
-      syncInventory(player);
+    if (item == null || item.getType() == Material.AIR) {
+      return;
     }
 
     if (item.getType() == Material.COMPASS) {
@@ -52,6 +52,7 @@ public class ItemListener implements Listener {
       player.setVelocity(velocity);
       player.updateInventory();
     } else if (item.getType() == Material.CHEST) {
+      event.setCancelled(true);
       TextController.send(
           player,
           TextType.INFORMATION,
@@ -61,7 +62,7 @@ public class ItemListener implements Listener {
       );
     }
 
-
+    syncInventory(player);
   }
 
   private void syncInventory(Player player) {
