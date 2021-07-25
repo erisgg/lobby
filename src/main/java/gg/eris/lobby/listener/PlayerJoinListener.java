@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
 @RequiredArgsConstructor
@@ -33,5 +34,10 @@ public final class PlayerJoinListener implements Listener {
     player.getInventory().setItem(0, FLY_PEARL);
     player.getInventory().setItem(4, GAME_SELECTOR);
     player.getInventory().setItem(8, STORE);
+  }
+
+  @EventHandler
+  public void onPlayerQuit(PlayerQuitEvent event) {
+    event.setQuitMessage(null);
   }
 }
