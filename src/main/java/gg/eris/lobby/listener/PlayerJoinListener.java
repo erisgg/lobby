@@ -24,8 +24,6 @@ public final class PlayerJoinListener implements Listener {
   private final static ItemStack STORE = new ItemBuilder(Material.CHEST)
       .withName(CC.YELLOW.bold() + "Store" + CC.DARK_GRAY + " (Right Click)").build();
 
-  private final ErisLobby plugin;
-
   @EventHandler
   public void onPlayerJoin(PlayerJoinEvent event) {
     event.setJoinMessage(null);
@@ -35,7 +33,5 @@ public final class PlayerJoinListener implements Listener {
     player.getInventory().setItem(0, FLY_PEARL);
     player.getInventory().setItem(4, GAME_SELECTOR);
     player.getInventory().setItem(8, STORE);
-
-    this.plugin.getScoreboard().addPlayerToScoreboard(player);
   }
 }

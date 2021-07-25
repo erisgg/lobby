@@ -21,6 +21,7 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -133,6 +134,11 @@ public final class LobbyProtectionListener implements Listener {
   @EventHandler
   public void onAchievementGet(PlayerAchievementAwardedEvent event) {
     event.setCancelled(true);
+  }
+
+  @EventHandler
+  public void onPlayerJoin(PlayerJoinEvent event) {
+    event.getPlayer().teleport(this.spawnLocation);
   }
 
   public void setSpawnLocation(Location spawnLocation) {
