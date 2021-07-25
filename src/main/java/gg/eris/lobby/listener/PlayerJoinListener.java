@@ -5,6 +5,7 @@ import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.lobby.ErisLobby;
 import lombok.RequiredArgsConstructor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,6 +32,7 @@ public final class PlayerJoinListener implements Listener {
 
     Player player = event.getPlayer();
     PlayerUtil.resetPlayer(player);
+    player.setGameMode(GameMode.ADVENTURE);
     player.getInventory().setItem(0, FLY_PEARL);
     player.getInventory().setItem(4, GAME_SELECTOR);
     player.getInventory().setItem(8, STORE);
