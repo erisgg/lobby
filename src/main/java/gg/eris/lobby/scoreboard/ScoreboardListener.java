@@ -17,14 +17,35 @@ public class ScoreboardListener implements Listener {
     this.scoreboard = scoreboardController.newScoreboard(Identifier.of("lobby", "scoreboard"));
 
     this.scoreboard.setTitle((player, tick) -> {
-      if (tick < 30) {
-        return CC.GOLD.bold() + "Eris";
-      } else if (tick < 60) {
-        return CC.YELLOW.bold() + "Eris";
-      } else if (tick < 90) {
-        return CC.WHITE.bold() + "Eris";
+      tick = tick % 77;
+      if (tick < 60) {
+        return CC.GOLD.bold() + "『 " + CC.YELLOW.bold() + "Eris" + CC.GOLD.bold() + " 』";
+      } else if (tick < 62) {
+        return CC.WHITE.bold() + "『 "
+            + CC.YELLOW.bold() + "Eris" + CC.GOLD.bold() + " 』";
+      } else if (tick < 64) {
+        return CC.WHITE.bold() + "『 E"
+            + CC.YELLOW.bold() + "ris" + CC.GOLD.bold() + " 』";
+      } else if (tick < 66) {
+        return CC.WHITE.bold() + "『 Er"
+            + CC.YELLOW.bold() + "is" + CC.GOLD.bold() + " 』";
+      } else if (tick < 68) {
+        return CC.GOLD.bold() + "『 "
+            + CC.WHITE.bold() + "Eri"
+            + CC.YELLOW.bold() + "s" + CC.GOLD.bold() + " 』";
+      } else if (tick < 70) {
+        return CC.GOLD.bold() + "『 " + CC.YELLOW.bold()
+            + "E" + CC.WHITE.bold() + "ris"
+            + CC.GOLD.bold() + " 』";
+      } else if (tick < 72) {
+        return CC.GOLD.bold() + "『 " + CC.YELLOW.bold()
+            + "Er" + CC.WHITE.bold() + "is 』";
+      } else if (tick < 74) {
+        return CC.GOLD.bold() + "『 " + CC.YELLOW.bold()
+            + "Eri" + CC.WHITE.bold() + "s 』";
       } else {
-        return CC.GRAY.bold() + "Eris";
+        return CC.GOLD.bold() + "『 " + CC.YELLOW.bold()
+            + "Eris" + CC.WHITE.bold() + " 』";
       }
     });
 
