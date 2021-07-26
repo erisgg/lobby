@@ -3,7 +3,6 @@ package gg.eris.lobby;
 import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.commons.bukkit.command.CommandManager;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
-import gg.eris.commons.bukkit.scoreboard.Scoreboard;
 import gg.eris.commons.bukkit.scoreboard.ScoreboardController;
 import gg.eris.lobby.command.PlaceNPCCommand;
 import gg.eris.lobby.command.SpawnLocationCommand;
@@ -49,8 +48,7 @@ public final class ErisLobby extends JavaPlugin {
     pluginManager.registerEvents(new PlayerJoinListener(), this);
     pluginManager.registerEvents(new MobSpawnListener(), this);
     pluginManager.registerEvents(new ItemListener(this), this);
-    pluginManager.registerEvents(
-        new ScoreboardListener(scoreboardController, erisPlayerManager), this);
+    pluginManager.registerEvents(new ScoreboardListener(scoreboardController), this);
 
     commandManager.registerCommands(new SpawnLocationCommand(this, lobbyProtectionListener),
         new PlaceNPCCommand(this));

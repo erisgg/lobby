@@ -18,6 +18,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
+import org.bukkit.event.inventory.InventoryPickupItemEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -121,13 +124,20 @@ public final class LobbyProtectionListener implements Listener {
 
   @EventHandler
   public void onInventoryClick(InventoryClickEvent event) {
-    if (event.getInventory() instanceof PlayerInventory) {
+    if (event.getInventory().getType() == InventoryType.CRAFTING) {
       event.setCancelled(true);
     }
   }
 
   @EventHandler
   public void onInventoryDrag(InventoryDragEvent event) {
+    if (event.getInventory().getType() == InventoryType.CRAFTING) {
+      event.setCancelled(true);
+    }
+  }
+
+  @EventHandler
+  public void onInventoryPickup(InventoryPickupItemEvent event) {
     event.setCancelled(true);
   }
 
