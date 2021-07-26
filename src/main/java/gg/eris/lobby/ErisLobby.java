@@ -4,6 +4,8 @@ import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.commons.bukkit.command.CommandManager;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.scoreboard.ScoreboardController;
+import gg.eris.commons.bukkit.tablist.TablistController;
+import gg.eris.commons.bukkit.util.CC;
 import gg.eris.lobby.command.PlaceNPCCommand;
 import gg.eris.lobby.command.SpawnLocationCommand;
 import gg.eris.lobby.listener.ItemListener;
@@ -38,6 +40,7 @@ public final class ErisLobby extends JavaPlugin {
     CommandManager commandManager = commons.getCommandManager();
     ScoreboardController scoreboardController = commons.getScoreboardController();
     ErisPlayerManager erisPlayerManager = commons.getErisPlayerManager();
+    TablistController tablistController = commons.getTablistController();
 
     LobbyProtectionListener lobbyProtectionListener;
 
@@ -52,6 +55,11 @@ public final class ErisLobby extends JavaPlugin {
 
     commandManager.registerCommands(new SpawnLocationCommand(this, lobbyProtectionListener),
         new PlaceNPCCommand(this));
+
+    tablistController.setDisplayNameFunction(player -> player.getRank().getColor().getColor() + "["
+        + player.getRank().getRawDisplay() + "] "
+        + (player.getRank().isWhiteChat() ? CC.WHITE : CC.GRAY)
+        + player.getName());
 
     registerNPCs();
     spawnSavedNPCs();
