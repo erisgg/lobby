@@ -56,10 +56,13 @@ public final class ErisLobby extends JavaPlugin {
     commandManager.registerCommands(new SpawnLocationCommand(this, lobbyProtectionListener),
         new PlaceNPCCommand(this));
 
-    tablistController.setDisplayNameFunction(player -> player.getRank().getColor().getColor() + "["
-        + player.getRank().getRawDisplay() + "] "
-        + (player.getRank().isWhiteChat() ? CC.WHITE : CC.GRAY)
-        + player.getName());
+    tablistController.setHeader(CC.YELLOW + "You are playing on " + CC.GOLD.bold() + "ERIS.GG");
+    tablistController.setFooter(CC.GOLD + "Visit our store at " + CC.YELLOW.bold() +
+        "STORE.ERIS.GG");
+    tablistController.setDisplayNameFunction(player ->
+        (player.getRank() == commons.getRankRegistry().DEFAULT ? CC.GRAY + player.getName()
+            : player.getRank().getColor().getColor() + "[" + player.getRank().getRawDisplay() +
+                "] " + CC.WHITE + player.getName()));
 
     registerNPCs();
     spawnSavedNPCs();
