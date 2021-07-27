@@ -9,10 +9,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CompassMenu extends Menu {
-    private static final String title = "Compass";
+    private static final String title = "Game Selector";
 
     public CompassMenu(JavaPlugin owningPlugin) {
-        super(owningPlugin, "compass", 3);
+        super(owningPlugin, "gameSelector", 3);
         setFillItem(new ItemStack(Material.STAINED_GLASS_PANE));
         MenuItem goldenApple = new GoldenApple();
         addItem(13, goldenApple);
