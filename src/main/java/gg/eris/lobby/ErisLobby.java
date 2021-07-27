@@ -4,6 +4,8 @@ import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.commons.bukkit.command.CommandManager;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.scoreboard.ScoreboardController;
+import gg.eris.commons.bukkit.tablist.TablistController;
+import gg.eris.commons.bukkit.util.CC;
 import gg.eris.lobby.command.PlaceNPCCommand;
 import gg.eris.lobby.command.SpawnLocationCommand;
 import gg.eris.lobby.listener.ItemListener;
@@ -43,6 +45,7 @@ public final class ErisLobby extends JavaPlugin {
     CommandManager commandManager = commons.getCommandManager();
     ScoreboardController scoreboardController = commons.getScoreboardController();
     ErisPlayerManager erisPlayerManager = commons.getErisPlayerManager();
+    TablistController tablistController = commons.getTablistController();
 
     LobbyProtectionListener lobbyProtectionListener;
 
@@ -58,6 +61,14 @@ public final class ErisLobby extends JavaPlugin {
 
     commandManager.registerCommands(new SpawnLocationCommand(this, lobbyProtectionListener),
         new PlaceNPCCommand(this));
+
+    tablistController.setHeader(CC.YELLOW + "You are playing on " + CC.GOLD.bold() + "ERIS.GG");
+    tablistController.setFooter(CC.GOLD + "Visit our store at " + CC.YELLOW.bold() +
+        "STORE.ERIS.GG");
+    tablistController.setDisplayNameFunction(player ->
+        (player.getRank() == commons.getRankRegistry().DEFAULT ? CC.GRAY + player.getName()
+            : player.getRank().getColor().getColor() + "[" + player.getRank().getRawDisplay() +
+                "] " + CC.WHITE + player.getName()));
 
     registerNPCs();
     spawnSavedNPCs();
