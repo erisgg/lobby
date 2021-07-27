@@ -8,7 +8,8 @@ import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.lobby.ErisLobby;
 import gg.eris.lobby.ErisLobbyIdentifiers;
-import gg.eris.lobby.npcs.ErisLobbyNPC;
+import gg.eris.lobby.npcs.ErisBaseLobbyNpc;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 
@@ -33,13 +34,25 @@ public class PlaceNPCCommand implements CommandProvider {
       Player player = context.getSenderAsPlayer();
       String name = context.getArgument("npcName");
 
+      Optional<ErisBaseLobbyNpc> optionalNpc = plugin.getNpcs().stream()
+          .filter(erisLobbyNPC -> erisLobbyNPC.getId().equals(name)).findFirst();
+
+      if (optionalNpc.isEmpty()) {
+        TextController.send(
+            player,
+            TextType.ERROR,
+            "There is no NPC with the ID: " + name
+        );
+
+        return;
+      }
+
       String configEntryName = String.format("%s-location", name);
 
       plugin.getConfig().set(configEntryName, player.getLocation());
       plugin.saveConfig();
 
-      ErisLobbyNPC npc = plugin.getNpcs().stream()
-          .filter(erisLobbyNPC -> erisLobbyNPC.getId().equals(name)).findFirst().get();
+      ErisBaseLobbyNpc npc = optionalNpc.get();
 
       String message;
 

@@ -3,7 +3,6 @@ package gg.eris.lobby.listener;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.PlayerUtil;
-import gg.eris.lobby.ErisLobby;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;

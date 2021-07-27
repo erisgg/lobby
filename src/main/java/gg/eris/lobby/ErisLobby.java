@@ -11,7 +11,12 @@ import gg.eris.lobby.listener.LaunchPadListener;
 import gg.eris.lobby.listener.LobbyProtectionListener;
 import gg.eris.lobby.listener.MobSpawnListener;
 import gg.eris.lobby.listener.PlayerJoinListener;
-import gg.eris.lobby.npcs.ErisLobbyNPC;
+import gg.eris.lobby.npcs.ErisBaseLobbyNpc;
+import gg.eris.lobby.npcs.NpcRightClickListener;
+import gg.eris.lobby.npcs.impl.ErisComingSoonLobbyNpc;
+import gg.eris.lobby.npcs.impl.ErisStoreLobbyNpc;
+import gg.eris.lobby.npcs.impl.ErisUhcLobbyNpc;
+import gg.eris.lobby.npcs.impl.ErisWebsiteLobbyNpc;
 import gg.eris.lobby.scoreboard.ScoreboardListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +30,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class ErisLobby extends JavaPlugin {
 
   @Getter
-  private List<ErisLobbyNPC> npcs;
+  private List<ErisBaseLobbyNpc> npcs;
 
   @Override
   public void onEnable() {
@@ -49,6 +54,7 @@ public final class ErisLobby extends JavaPlugin {
     pluginManager.registerEvents(new MobSpawnListener(), this);
     pluginManager.registerEvents(new ItemListener(this), this);
     pluginManager.registerEvents(new ScoreboardListener(scoreboardController), this);
+    pluginManager.registerEvents(new NpcRightClickListener(this), this);
 
     commandManager.registerCommands(new SpawnLocationCommand(this, lobbyProtectionListener),
         new PlaceNPCCommand(this));
@@ -59,7 +65,7 @@ public final class ErisLobby extends JavaPlugin {
 
   @Override
   public void onDisable() {
-    for (ErisLobbyNPC npc : npcs) {
+    for (ErisBaseLobbyNpc npc : npcs) {
       npc.despawn();
     }
   }
@@ -67,13 +73,16 @@ public final class ErisLobby extends JavaPlugin {
   private void registerNPCs() {
     npcs = new ArrayList<>();
 
-    // Add NPC instances here - e.g. npcs.add(new TrollNPC(this));
+    npcs.add(new ErisComingSoonLobbyNpc());
+    npcs.add(new ErisStoreLobbyNpc());
+    npcs.add(new ErisUhcLobbyNpc());
+    npcs.add(new ErisWebsiteLobbyNpc());
   }
 
   private void spawnSavedNPCs() {
     FileConfiguration config = this.getConfig();
 
-    for (ErisLobbyNPC npc : npcs) {
+    for (ErisBaseLobbyNpc npc : npcs) {
       String configEntryName = String.format("%s-location", npc.getId());
 
       if (config.contains(configEntryName)) {
