@@ -65,7 +65,7 @@ public final class ErisLobby extends JavaPlugin {
     tablistController.setHeader(CC.YELLOW + "You are playing on " + CC.GOLD.bold() + "ERIS.GG");
     tablistController.setFooter(CC.GOLD + "Visit our store at " + CC.YELLOW.bold() +
         "STORE.ERIS.GG");
-    tablistController.setDisplayNameFunction(player ->
+    tablistController.setDisplayNameFunction((player, viewer) ->
         (player.getRank() == commons.getRankRegistry().DEFAULT ? CC.GRAY + player.getName()
             : player.getRank().getColor().getColor() + "[" + player.getRank().getRawDisplay() +
                 "] " + CC.WHITE + player.getName()));
