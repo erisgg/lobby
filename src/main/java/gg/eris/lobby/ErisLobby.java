@@ -14,6 +14,7 @@ import gg.eris.lobby.listener.LobbyProtectionListener;
 import gg.eris.lobby.listener.MobSpawnListener;
 import gg.eris.lobby.listener.PlayerJoinListener;
 import gg.eris.lobby.npcs.ErisBaseLobbyNpc;
+import gg.eris.lobby.npcs.NpcLeftClickListener;
 import gg.eris.lobby.npcs.NpcRightClickListener;
 import gg.eris.lobby.npcs.impl.ErisComingSoonLobbyNpc;
 import gg.eris.lobby.npcs.impl.ErisStoreLobbyNpc;
@@ -23,6 +24,8 @@ import gg.eris.lobby.scoreboard.ScoreboardListener;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.event.DespawnReason;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -57,6 +60,7 @@ public final class ErisLobby extends JavaPlugin {
     pluginManager.registerEvents(new MobSpawnListener(), this);
     pluginManager.registerEvents(new ItemListener(this), this);
     pluginManager.registerEvents(new ScoreboardListener(scoreboardController), this);
+    pluginManager.registerEvents(new NpcLeftClickListener(this), this);
     pluginManager.registerEvents(new NpcRightClickListener(this), this);
 
     commandManager.registerCommands(new SpawnLocationCommand(this, lobbyProtectionListener),
@@ -82,6 +86,9 @@ public final class ErisLobby extends JavaPlugin {
   }
 
   private void registerNPCs() {
+    CitizensAPI.getNPCRegistry().despawnNPCs(DespawnReason.PLUGIN);
+    CitizensAPI.getNPCRegistry().deregisterAll();
+
     npcs = new ArrayList<>();
 
     npcs.add(new ErisComingSoonLobbyNpc());
