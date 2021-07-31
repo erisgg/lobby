@@ -28,7 +28,7 @@ public class ErisWebsiteLobbyNpc extends ErisBaseLobbyNpc {
   }
 
   @Override
-  public void onRightClickedByPlayer(Player player) {
+  public void onClickedByPlayer(Player player) {
     TextController.send(
         player,
         TextType.INFORMATION,

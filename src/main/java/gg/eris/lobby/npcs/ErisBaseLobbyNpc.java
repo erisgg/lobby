@@ -48,5 +48,5 @@ public abstract class ErisBaseLobbyNpc {
 
   public abstract String getSkinName();
 
-  public abstract void onRightClickedByPlayer(Player player);
+  public abstract void onClickedByPlayer(Player player);
 }

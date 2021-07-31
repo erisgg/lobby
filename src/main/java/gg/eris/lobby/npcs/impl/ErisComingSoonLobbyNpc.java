@@ -21,7 +21,7 @@ public class ErisComingSoonLobbyNpc extends ErisBaseLobbyNpc {
   }
 
   @Override
-  public void onRightClickedByPlayer(Player player) {
+  public void onClickedByPlayer(Player player) {
     // Don't need to do anything here.
   }
 }
