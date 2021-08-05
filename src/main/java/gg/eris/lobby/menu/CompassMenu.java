@@ -8,8 +8,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class CompassMenu extends Menu {
 
-  private static final String title = "Game Selector";
-
   public CompassMenu(JavaPlugin owningPlugin) {
     super(owningPlugin, Identifier.of("compass", "game_selector"), 3);
     setFillItem(Menu.LIGHT_FILLER);
@@ -18,7 +16,7 @@ public class CompassMenu extends Menu {
 
   @Override
   public String getTitle(MenuViewer viewer) {
-    return title;
+    return "Game Selector";
   }
 
 
