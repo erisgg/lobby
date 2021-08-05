@@ -16,11 +16,11 @@ import org.bukkit.inventory.ItemStack;
 @RequiredArgsConstructor
 public final class PlayerJoinListener implements Listener {
 
-  private final static ItemStack GAME_SELECTOR = new ItemBuilder(Material.COMPASS)
-      .withName(CC.GREEN.bold() + "Game Selector" + CC.DARK_GRAY + " (Right Click)").build();
-
   private final static ItemStack FLY_PEARL = new ItemBuilder(Material.ENDER_PEARL, 16)
       .withName(CC.GOLD.bold() + "Fly Pearl" + CC.DARK_GRAY + " (Right Click)").build();
+
+  private final static ItemStack GAME_SELECTOR = new ItemBuilder(Material.COMPASS)
+      .withName(CC.GREEN.bold() + "Game Selector" + CC.DARK_GRAY + " (Right Click)").build();
 
   private final static ItemStack STORE = new ItemBuilder(Material.CHEST)
       .withName(CC.YELLOW.bold() + "Store" + CC.DARK_GRAY + " (Right Click)").build();

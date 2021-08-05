@@ -2,13 +2,10 @@ package gg.eris.lobby.listener;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import gg.eris.commons.bukkit.util.ParticleUtil;
 import gg.eris.lobby.ErisLobby;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-import net.minecraft.server.v1_8_R3.EnumParticle;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -68,7 +65,7 @@ public final class LaunchPadListener implements Listener {
         // Particles
         //Location origin = event.getClickedBlock().getLocation().add(new Vector(0.5, 0.5, 0.5));
         //ParticleUtil.spawnSpiralForPlayer(EnumParticle.FLAME, false, PARTICLES_PER_POINT, origin,
-           // SPIRAL_POINT_COUNT, SPIRAL_HEIGHT, SPIRAL_RADIUS, SPIRAL_ROTATIONS, player);
+        // SPIRAL_POINT_COUNT, SPIRAL_HEIGHT, SPIRAL_RADIUS, SPIRAL_ROTATIONS, player);
       }, 1);
     }
   }

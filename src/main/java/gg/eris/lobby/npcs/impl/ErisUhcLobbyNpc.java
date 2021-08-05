@@ -22,6 +22,6 @@ public final class ErisUhcLobbyNpc extends ErisBaseLobbyNpc {
 
   @Override
   public void onClickedByPlayer(Player player) {
-    // Run command to put the player into a UHC lobby.
+
   }
 }

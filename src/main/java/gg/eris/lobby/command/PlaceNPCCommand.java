@@ -60,8 +60,7 @@ public class PlaceNPCCommand implements CommandProvider {
         npc.teleport(player.getLocation());
 
         message = String.format("Config entry for %s updated!", name);
-      }
-      else {
+      } else {
         npc.spawn(player.getLocation());
 
         message = String.format("Config entry for %s created!", name);

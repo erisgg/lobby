@@ -52,8 +52,11 @@ public class ScoreboardListener implements Listener {
     this.scoreboard.addLine("");
     this.scoreboard.addLine((p, t) -> CC.GREEN + "Rank: " + p.getRank().getColoredDisplay());
     this.scoreboard.addLine("");
-    this.scoreboard.addLine((p, t) -> CC.GREEN + "Lobby: " + CC.WHITE + Bukkit.getOnlinePlayers().size(), 20);
-    this.scoreboard.addLine((p, t) -> CC.GREEN + "Network: " + CC.WHITE + Bukkit.getOnlinePlayers().size(), 20);
+    this.scoreboard
+        .addLine((p, t) -> CC.GREEN + "Lobby: " + CC.WHITE + Bukkit.getOnlinePlayers().size(), 20);
+    this.scoreboard
+        .addLine((p, t) -> CC.GREEN + "Network: " + CC.WHITE + Bukkit.getOnlinePlayers().size(),
+            20);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.YELLOW + "Play @ eris.gg");
   }
