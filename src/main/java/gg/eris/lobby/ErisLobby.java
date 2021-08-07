@@ -24,6 +24,7 @@ import gg.eris.lobby.scoreboard.ScoreboardListener;
 import java.util.List;
 import lombok.Getter;
 import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.event.DespawnReason;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.npc.NPCRegistry;
 import org.bukkit.Bukkit;
@@ -91,6 +92,7 @@ public final class ErisLobby extends JavaPlugin {
 
   private void registerNPCs() {
     for (NPCRegistry registry : CitizensAPI.getNPCRegistries()) {
+      registry.despawnNPCs(DespawnReason.REMOVAL);
       registry.sorted().forEach(NPC::destroy);
       registry.deregisterAll();
     }
