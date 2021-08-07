@@ -1,5 +1,7 @@
 package gg.eris.lobby.npcs.impl;
 
+import gg.eris.commons.bukkit.text.TextController;
+import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.lobby.npcs.ErisBaseLobbyNpc;
 import org.bukkit.entity.Player;
 
@@ -22,6 +24,10 @@ public class ErisComingSoonLobbyNpc extends ErisBaseLobbyNpc {
 
   @Override
   public void onClickedByPlayer(Player player) {
-    // Don't need to do anything here.
+    TextController.send(
+        player,
+        TextType.INFORMATION,
+        "Coming soon..."
+    );
   }
 }

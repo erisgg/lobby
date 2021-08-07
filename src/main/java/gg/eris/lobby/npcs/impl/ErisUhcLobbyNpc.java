@@ -1,5 +1,7 @@
 package gg.eris.lobby.npcs.impl;
 
+import gg.eris.commons.bukkit.text.TextController;
+import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.lobby.npcs.ErisBaseLobbyNpc;
 import org.bukkit.entity.Player;
 

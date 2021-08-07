@@ -75,10 +75,10 @@ public final class ErisLobby extends JavaPlugin {
                 player.getPriorityRank().getColor().getColor() + "[" + player.getPriorityRank()
                     .getRawDisplay() + "] " + CC.WHITE + player.getName()));
 
-    Bukkit.getScheduler().runTask(this, () -> {
+    Bukkit.getScheduler().runTaskLater(this, () -> {
       registerNPCs();
       spawnSavedNPCs();
-    });
+    }, 20L);
   }
 
   @Override
@@ -106,7 +106,6 @@ public final class ErisLobby extends JavaPlugin {
 
       if (config.contains(configEntryName)) {
         Location location = (Location) config.get(configEntryName);
-
         npc.spawn(location);
       }
     }
