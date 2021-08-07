@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class ScoreboardListener implements Listener {
+public final class ScoreboardListener implements Listener {
 
   private final CommonsScoreboard scoreboard;
 
@@ -50,7 +50,7 @@ public class ScoreboardListener implements Listener {
     });
 
     this.scoreboard.addLine("");
-    this.scoreboard.addLine((p, t) -> CC.GREEN + "Rank: " + p.getRank().getColoredDisplay());
+    this.scoreboard.addLine((p, t) -> CC.GREEN + "Rank: " + p.getPriorityRank().getColoredDisplay());
     this.scoreboard.addLine("");
     this.scoreboard
         .addLine((p, t) -> CC.GREEN + "Lobby: " + CC.WHITE + Bukkit.getOnlinePlayers().size(), 20);

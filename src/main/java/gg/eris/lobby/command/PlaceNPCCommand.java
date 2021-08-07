@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 
 @RequiredArgsConstructor
-public class PlaceNPCCommand implements CommandProvider {
+public final class PlaceNPCCommand implements CommandProvider {
 
   private final ErisLobby plugin;
 
@@ -22,55 +22,52 @@ public class PlaceNPCCommand implements CommandProvider {
   public Builder getCommand(CommandManager manager) {
     return manager.newCommandBuilder(
         "placenpc",
+        "placenpc <name>",
         "Places the NPC with the associated string ID at the sender's location.",
         ErisLobbyIdentifiers.NPC_PLACEMENT_PERMISSION
-    ).noArgsHandler(context -> {
-      TextController.send(
-          context.getSenderAsPlayer(),
-          TextType.ERROR,
-          "Invalid command usage!"
-      );
-    }, true).withSubCommand().argument(StringArgument.of("npcName")).handler(context -> {
-      Player player = context.getSenderAsPlayer();
-      String name = context.getArgument("npcName");
+    ).withSubCommand()
+        .argument(StringArgument.of("npcName")).handler(context -> {
+          Player player = context.getSenderAsPlayer();
+          String name = context.getArgument("npcName");
 
-      Optional<ErisBaseLobbyNpc> optionalNpc = plugin.getNpcs().stream()
-          .filter(erisLobbyNPC -> erisLobbyNPC.getId().equals(name)).findFirst();
+          Optional<ErisBaseLobbyNpc> optionalNpc = this.plugin.getNpcs().stream()
+              .filter(erisLobbyNPC -> erisLobbyNPC.getId().equals(name)).findFirst();
 
-      if (optionalNpc.isEmpty()) {
-        TextController.send(
-            player,
-            TextType.ERROR,
-            "There is no NPC with the ID: " + name
-        );
+          if (optionalNpc.isEmpty()) {
+            TextController.send(
+                player,
+                TextType.ERROR,
+                "There is no NPC with the ID: " + name
+            );
 
-        return;
-      }
+            return;
+          }
 
-      String configEntryName = String.format("%s-location", name);
+          String configEntryName = name + "-location";
 
-      plugin.getConfig().set(configEntryName, player.getLocation());
-      plugin.saveConfig();
+          this.plugin.getConfig().set(configEntryName, player.getLocation());
+          this.plugin.saveConfig();
 
-      ErisBaseLobbyNpc npc = optionalNpc.get();
+          ErisBaseLobbyNpc npc = optionalNpc.get();
 
-      String message;
+          String message;
 
-      if (npc.isSpawned()) {
-        npc.teleport(player.getLocation());
+          if (npc.isSpawned()) {
+            npc.teleport(player.getLocation());
 
-        message = String.format("Config entry for %s updated!", name);
-      } else {
-        npc.spawn(player.getLocation());
+            message = "Config entry for <h>{0}</h> updated!";
+          } else {
+            npc.spawn(player.getLocation());
 
-        message = String.format("Config entry for %s created!", name);
-      }
+            message = "Config entry for <h>{0}</h> created!";
+          }
 
-      TextController.send(
-          player,
-          TextType.SUCCESS,
-          message
-      );
-    }).asPlayerOnly().finished();
+          TextController.send(
+              player,
+              TextType.SUCCESS,
+              message,
+              name
+          );
+        }).asPlayerOnly().finished();
   }
 }

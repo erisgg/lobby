@@ -10,10 +10,11 @@ import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class GoldenApple implements MenuItem {
+public class UhcMenuItem implements MenuItem {
 
   private static final ItemStack ITEM = new ItemBuilder(Material.GOLDEN_APPLE)
       .withName(CC.GREEN.bold() + "Eris UHC")
+      .withLore(CC.GREEN.italic() + "Click to join Eris UHC")
       .build();
 
   @Override

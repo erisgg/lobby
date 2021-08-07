@@ -22,6 +22,7 @@ public final class ErisUhcLobbyNpc extends ErisBaseLobbyNpc {
 
   @Override
   public void onClickedByPlayer(Player player) {
-
+    player.performCommand("uhc");
   }
+
 }

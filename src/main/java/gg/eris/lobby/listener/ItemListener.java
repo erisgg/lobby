@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 @RequiredArgsConstructor
-public class ItemListener implements Listener {
+public final class ItemListener implements Listener {
 
   private static final Vector Y_ADDENDUM = new Vector(0, 0.5, 0);
   private static final double PEARL_LAUNCH_MAGNITUDE = 2;

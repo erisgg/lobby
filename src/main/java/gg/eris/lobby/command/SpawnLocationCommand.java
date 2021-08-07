@@ -13,7 +13,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 @RequiredArgsConstructor
-public class SpawnLocationCommand implements CommandProvider {
+public final class SpawnLocationCommand implements CommandProvider {
 
   private final ErisLobby plugin;
   private final LobbyProtectionListener lobbyProtectionListener;
@@ -22,7 +22,8 @@ public class SpawnLocationCommand implements CommandProvider {
   public Builder getCommand(CommandManager manager) {
     return manager.newCommandBuilder(
         "spawnlocation",
-        "Sets the spawn location for the given world name at the sender's position",
+        "spawnlocation",
+        "Sets the spawn location for the given world name at the sender's position.",
         ErisLobbyIdentifiers.SPAWN_LOCATION_PERMISSION
     ).noArgsHandler(context -> {
       Player player = context.getSenderAsPlayer();
