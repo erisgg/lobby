@@ -25,6 +25,7 @@ import java.util.List;
 import lombok.Getter;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.npc.NPCRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -89,13 +90,17 @@ public final class ErisLobby extends JavaPlugin {
   }
 
   private void registerNPCs() {
-    CitizensAPI.getNPCRegistry().sorted().forEach(NPC::destroy);
+    for (NPCRegistry registry : CitizensAPI.getNPCRegistries()) {
+      registry.sorted().forEach(NPC::destroy);
+      registry.deregisterAll();
+    }
 
-    this.npcs = Lists.newArrayList();
-    this.npcs.add(new ErisComingSoonLobbyNpc());
-    this.npcs.add(new ErisStoreLobbyNpc());
-    this.npcs.add(new ErisUhcLobbyNpc());
-    this.npcs.add(new ErisWebsiteLobbyNpc());
+    this.npcs = List.of(
+        new ErisComingSoonLobbyNpc(),
+        new ErisStoreLobbyNpc(),
+        new ErisUhcLobbyNpc(),
+        new ErisWebsiteLobbyNpc()
+    );
   }
 
   private void spawnSavedNPCs() {

@@ -19,7 +19,6 @@ public abstract class ErisBaseLobbyNpc {
 
   public ErisBaseLobbyNpc() {
     this.citizensNpc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, getIgn());
-
     SkinTrait skinTrait = this.citizensNpc.getOrAddTrait(SkinTrait.class);
     skinTrait.setSkinName(getSkinName());
   }
@@ -35,7 +34,7 @@ public abstract class ErisBaseLobbyNpc {
 
   public void despawn() {
     spawned = false;
-    citizensNpc.despawn();
+    citizensNpc.destroy();
   }
 
   public void teleport(Location location) {
