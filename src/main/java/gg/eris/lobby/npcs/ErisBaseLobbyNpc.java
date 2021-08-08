@@ -1,8 +1,10 @@
 package gg.eris.lobby.npcs;
 
+import gg.eris.commons.bukkit.util.CC;
 import lombok.Getter;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.trait.SkinLayers;
 import net.citizensnpcs.trait.SkinTrait;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
@@ -24,6 +26,7 @@ public abstract class ErisBaseLobbyNpc {
         getTextureSignature(),
         getTextureData()
     );
+    this.citizensNpc.getOrAddTrait(SkinLayers.class).hideCape();
   }
 
   public final boolean matches(NPC npc) {
