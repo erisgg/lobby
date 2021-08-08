@@ -52,7 +52,16 @@ public final class LobbyProtectionListener implements Listener {
 
     if (this.spawnLocation != null) {
       World world = spawnLocation.getWorld();
-      Bukkit.getScheduler().runTaskTimer(plugin, () -> world.setTime(6000), 0L, 1L);
+      Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+        world.setFullTime(6000);
+        world.setTime(6000);
+      }, 0L, 1L);
+      Bukkit.getScheduler().runTask(plugin, () -> {
+        world.setWeatherDuration(0);
+        world.setStorm(false);
+        world.setThundering(false);
+        world.setThunderDuration(0);
+      });
       world.setAutoSave(false);
     } else {
       Bukkit.getLogger().warning("Invalid world supplied: " + config.getString("world"));

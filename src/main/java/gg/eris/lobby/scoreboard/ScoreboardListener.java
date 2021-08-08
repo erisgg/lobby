@@ -1,9 +1,9 @@
 package gg.eris.lobby.scoreboard;
 
 import gg.eris.commons.bukkit.scoreboard.CommonsScoreboard;
-import gg.eris.commons.bukkit.scoreboard.ScoreboardController;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.identifier.Identifier;
+import gg.eris.lobby.ErisLobby;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,8 +13,11 @@ public final class ScoreboardListener implements Listener {
 
   private final CommonsScoreboard scoreboard;
 
-  public ScoreboardListener(ScoreboardController scoreboardController) {
-    this.scoreboard = scoreboardController.newScoreboard(Identifier.of("lobby", "scoreboard"));
+  private int networkCount;
+
+  public ScoreboardListener(ErisLobby plugin) {
+    this.scoreboard = plugin.getCommons().getScoreboardController().newScoreboard(
+        Identifier.of("lobby", "scoreboard"));
 
     this.scoreboard.setTitle((player, tick) -> {
       tick = tick % 77;
@@ -50,15 +53,18 @@ public final class ScoreboardListener implements Listener {
     });
 
     this.scoreboard.addLine("");
-    this.scoreboard.addLine((p, t) -> CC.GREEN + "Rank: " + p.getPriorityRank().getColoredDisplay());
+    this.scoreboard
+        .addLine((p, t) -> CC.GREEN + "Rank: " + p.getPriorityRank().getColoredDisplay());
     this.scoreboard.addLine("");
     this.scoreboard
-        .addLine((p, t) -> CC.GREEN + "Lobby: " + CC.WHITE + Bukkit.getOnlinePlayers().size(), 20);
+        .addLine((p, t) -> CC.GREEN + "Lobby: " + CC.WHITE + Bukkit.getOnlinePlayers().size(), 1);
     this.scoreboard
-        .addLine((p, t) -> CC.GREEN + "Network: " + CC.WHITE + Bukkit.getOnlinePlayers().size(),
-            20);
+        .addLine((p, t) -> CC.GREEN + "Network: " + CC.WHITE + this.networkCount, 1);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.YELLOW + "Play @ eris.gg");
+
+    Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () ->
+        this.networkCount = plugin.getCommons().getNetworkPlayerCount(), 0L, 1L);
   }
 
   @EventHandler

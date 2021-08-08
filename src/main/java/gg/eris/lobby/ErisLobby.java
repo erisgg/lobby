@@ -1,9 +1,7 @@
 package gg.eris.lobby;
 
-import com.google.common.collect.Lists;
 import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.commons.bukkit.command.CommandManager;
-import gg.eris.commons.bukkit.scoreboard.ScoreboardController;
 import gg.eris.commons.bukkit.tablist.TablistController;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.lobby.command.PlaceNPCCommand;
@@ -36,19 +34,21 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class ErisLobby extends JavaPlugin {
 
   @Getter
+  private ErisBukkitCommons commons;
+
+  @Getter
   private List<ErisBaseLobbyNpc> npcs;
 
   @Override
   public void onEnable() {
-    ErisBukkitCommons commons = Bukkit.getServicesManager().getRegistration(ErisBukkitCommons.class)
+    this.commons = Bukkit.getServicesManager().getRegistration(ErisBukkitCommons.class)
         .getProvider();
 
     saveDefaultConfig();
 
     PluginManager pluginManager = Bukkit.getServer().getPluginManager();
-    CommandManager commandManager = commons.getCommandManager();
-    ScoreboardController scoreboardController = commons.getScoreboardController();
-    TablistController tablistController = commons.getTablistController();
+    CommandManager commandManager = this.commons.getCommandManager();
+    TablistController tablistController = this.commons.getTablistController();
 
     LobbyProtectionListener lobbyProtectionListener;
 
@@ -59,7 +59,7 @@ public final class ErisLobby extends JavaPlugin {
     pluginManager.registerEvents(new PlayerJoinListener(), this);
     pluginManager.registerEvents(new MobSpawnListener(), this);
     pluginManager.registerEvents(new ItemListener(this), this);
-    pluginManager.registerEvents(new ScoreboardListener(scoreboardController), this);
+    pluginManager.registerEvents(new ScoreboardListener(this), this);
     pluginManager.registerEvents(new NpcRightClickListener(this), this);
 
     commandManager.registerCommands(
@@ -72,10 +72,10 @@ public final class ErisLobby extends JavaPlugin {
     tablistController.setFooter(CC.GOLD + "Visit our store at " + CC.YELLOW.bold() +
         "STORE.ERIS.GG");
     tablistController.setDisplayNameFunction((player, viewer) ->
-        (player.getPriorityRank() == commons.getRankRegistry().DEFAULT ?
+        (player.getPriorityRank() == this.commons.getRankRegistry().DEFAULT ?
             CC.GRAY + player.getName() :
-                player.getPriorityRank().getColor().getColor() + "[" + player.getPriorityRank()
-                    .getRawDisplay() + "] " + CC.WHITE + player.getName()));
+            player.getPriorityRank().getColor().getColor() + "[" + player.getPriorityRank()
+                .getRawDisplay() + "] " + CC.WHITE + player.getName()));
 
     Bukkit.getScheduler().runTaskLater(this, () -> {
       registerNPCs();
@@ -100,7 +100,7 @@ public final class ErisLobby extends JavaPlugin {
     this.npcs = List.of(
         new ErisComingSoonLobbyNpc(),
         new ErisStoreLobbyNpc(),
-        new ErisUhcLobbyNpc(),
+        new ErisUhcLobbyNpc(this),
         new ErisWebsiteLobbyNpc()
     );
   }

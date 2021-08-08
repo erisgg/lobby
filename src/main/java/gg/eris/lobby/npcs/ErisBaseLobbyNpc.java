@@ -15,29 +15,32 @@ public abstract class ErisBaseLobbyNpc {
   @Getter
   private boolean spawned;
 
-  private final NPC citizensNpc;
+  protected final NPC citizensNpc;
 
   public ErisBaseLobbyNpc() {
     this.citizensNpc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, getIgn());
-    SkinTrait skinTrait = this.citizensNpc.getOrAddTrait(SkinTrait.class);
-    skinTrait.setSkinName(getSkinName());
+    this.citizensNpc.getOrAddTrait(SkinTrait.class).setSkinPersistent(
+        getIgn(),
+        getTextureSignature(),
+        getTextureData()
+    );
   }
 
-  public boolean matches(NPC npc) {
+  public final boolean matches(NPC npc) {
     return citizensNpc == npc;
   }
 
-  public void spawn(Location location) {
+  public final void spawn(Location location) {
     spawned = true;
     citizensNpc.spawn(location);
   }
 
-  public void despawn() {
+  public final void despawn() {
     spawned = false;
     citizensNpc.destroy();
   }
 
-  public void teleport(Location location) {
+  public final void teleport(Location location) {
     citizensNpc.teleport(location, TeleportCause.PLUGIN);
   }
 
@@ -45,7 +48,9 @@ public abstract class ErisBaseLobbyNpc {
 
   public abstract String getId();
 
-  public abstract String getSkinName();
+  public abstract String getTextureSignature();
+
+  public abstract String getTextureData();
 
   public abstract void onClickedByPlayer(Player player);
 }
