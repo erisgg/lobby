@@ -1,12 +1,10 @@
 package gg.eris.lobby;
 
-import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.commons.bukkit.permission.Permission;
 import gg.eris.commons.bukkit.permission.PermissionGroup;
 import gg.eris.commons.bukkit.permission.PermissionRegistry;
 import gg.eris.commons.core.identifier.Identifier;
 import lombok.experimental.UtilityClass;
-import org.bukkit.Bukkit;
 
 @UtilityClass
 public class ErisLobbyIdentifiers {

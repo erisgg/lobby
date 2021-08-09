@@ -1,6 +1,5 @@
 package gg.eris.lobby.npcs;
 
-import gg.eris.commons.bukkit.util.CC;
 import lombok.Getter;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;

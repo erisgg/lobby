@@ -4,7 +4,6 @@ import gg.eris.commons.bukkit.text.ClickEvent;
 import gg.eris.commons.bukkit.text.HoverEvent;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
-import gg.eris.commons.bukkit.util.CC;
 import gg.eris.lobby.npcs.ErisBaseLobbyNpc;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import org.bukkit.entity.Player;
