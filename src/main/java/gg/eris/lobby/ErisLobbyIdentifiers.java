@@ -18,13 +18,7 @@ public class ErisLobbyIdentifiers {
   public static final Identifier UHC_PERMISSION = permission("uhc", PermissionGroup.ALL);
 
   private static Identifier permission(String name, PermissionGroup group) {
-    PermissionRegistry registry =
-        Bukkit.getServicesManager()
-            .getRegistration(ErisBukkitCommons.class)
-            .getProvider()
-            .getPermissionRegistry();
-
-    return Permission.ofDefault(registry, name, group).getIdentifier();
+    return Permission.ofDefault(PermissionRegistry.get(), name, group).getIdentifier();
   }
 
 }
