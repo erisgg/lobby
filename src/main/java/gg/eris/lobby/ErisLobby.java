@@ -30,8 +30,12 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.spigotmc.SpigotConfig;
 
 public final class ErisLobby extends JavaPlugin {
+
+  private static final String WHITELIST_MESSAGE
+      = CC.GOLD.bold() + "(!) " + CC.GOLD + "Eris is in maintenance mode.";
 
   @Getter
   private ErisBukkitCommons commons;
@@ -80,6 +84,7 @@ public final class ErisLobby extends JavaPlugin {
     Bukkit.getScheduler().runTaskLater(this, () -> {
       registerNPCs();
       spawnSavedNPCs();
+      SpigotConfig.whitelistMessage = WHITELIST_MESSAGE;
     }, 20L);
   }
 
