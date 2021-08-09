@@ -2,27 +2,29 @@ package gg.eris.lobby;
 
 import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.commons.bukkit.permission.Permission;
+import gg.eris.commons.bukkit.permission.PermissionGroup;
 import gg.eris.commons.bukkit.permission.PermissionRegistry;
 import gg.eris.commons.core.identifier.Identifier;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
-import org.bukkit.Utility;
 
 @UtilityClass
 public class ErisLobbyIdentifiers {
 
-  public static final Identifier SPAWN_LOCATION_PERMISSION = permission("spawnlocation");
-  public static final Identifier NPC_PLACEMENT_PERMISSION = permission("placenpc");
-  public static final Identifier UHC_PERMISSION = permission("uhc");
+  public static final Identifier SPAWN_LOCATION_PERMISSION = permission("spawnlocation",
+      PermissionGroup.HIGHER_STAFF);
+  public static final Identifier NPC_PLACEMENT_PERMISSION = permission("placenpc",
+      PermissionGroup.HIGHER_STAFF);
+  public static final Identifier UHC_PERMISSION = permission("uhc", PermissionGroup.ALL);
 
-  private static Identifier permission(String name) {
+  private static Identifier permission(String name, PermissionGroup group) {
     PermissionRegistry registry =
         Bukkit.getServicesManager()
             .getRegistration(ErisBukkitCommons.class)
             .getProvider()
             .getPermissionRegistry();
 
-    return Permission.ofDefault(registry, name).getIdentifier();
+    return Permission.ofDefault(registry, name, group).getIdentifier();
   }
 
 }
