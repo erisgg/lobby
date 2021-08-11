@@ -28,7 +28,7 @@ public final class PlayerJoinListener implements Listener {
           + CenteredChatData.getCentredMessage("&6Website: &eeris.gg") + "\n" + CC.RESET
           + CenteredChatData.getCentredMessage("&6Discord: &ediscord.eris.gg") + "\n" + CC.RESET
           + CenteredChatData.getCentredMessage("&6Store: &estore.eris.gg") + "\n" + CC.RESET
-          + CenteredChatData.getCentredMessage("&6Twitter: &E@ErisNetworkMC") + "\n \n" + CC.RESET
+          + CenteredChatData.getCentredMessage("&6Twitter: &e@ErisNetworkMC") + "\n \n" + CC.RESET
           + STRIKE;
 
   private static final ItemStack FLY_PEARL = new ItemBuilder(Material.ENDER_PEARL, 16)
