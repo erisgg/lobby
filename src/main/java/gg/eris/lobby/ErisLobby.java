@@ -2,6 +2,8 @@ package gg.eris.lobby;
 
 import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.commons.bukkit.command.CommandManager;
+import gg.eris.commons.bukkit.rank.Rank;
+import gg.eris.commons.bukkit.rank.RankRegistry;
 import gg.eris.commons.bukkit.tablist.TablistController;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.lobby.command.PlaceNPCCommand;
@@ -75,12 +77,13 @@ public final class ErisLobby extends JavaPlugin {
     tablistController.setHeader(CC.YELLOW + "You are playing on " + CC.GOLD.bold() + "ERIS.GG");
     tablistController.setFooter(CC.GOLD + "Visit our store at " + CC.YELLOW.bold() +
         "STORE.ERIS.GG");
-    tablistController.setDisplayNameFunction((player, viewer) ->
-        (player.getPriorityRank() == this.commons.getRankRegistry().DEFAULT ?
-            CC.GRAY + player.getName() :
-            player.getPriorityRank().getColor().getColor() + "[" + player.getPriorityRank()
-                .getRawDisplay() + "] " + CC.WHITE + player.getName()));
-
+    tablistController.setDisplayNameFunction((player, viewer) -> {
+      Rank rank = player.getNicknameProfile().getPriorityDisplayRank();
+      return rank == RankRegistry.get().DEFAULT ?
+          CC.GRAY + player.getNicknameProfile().getDisplayName() : rank.getColor().getColor() +
+          "[" + rank.getRawDisplay() + "] " + CC.WHITE + player.getNicknameProfile()
+          .getDisplayName();
+    });
     Bukkit.getScheduler().runTaskLater(this, () -> {
       registerNPCs();
       spawnSavedNPCs();
