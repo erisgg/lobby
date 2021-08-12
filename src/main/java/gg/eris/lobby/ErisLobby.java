@@ -80,9 +80,8 @@ public final class ErisLobby extends JavaPlugin {
     tablistController.setDisplayNameFunction((player, viewer) -> {
       Rank rank = player.getNicknameProfile().getPriorityDisplayRank();
       return rank == RankRegistry.get().DEFAULT ?
-          CC.GRAY + player.getNicknameProfile().getDisplayName() : rank.getColor().getColor() +
-          "[" + rank.getRawDisplay() + "] " + CC.WHITE + player.getNicknameProfile()
-          .getDisplayName();
+          CC.GRAY + player.getDisplayName() : rank.getColor().getColor() +
+          "[" + rank.getRawDisplay() + "] " + CC.WHITE + player.getDisplayName();
     });
     Bukkit.getScheduler().runTaskLater(this, () -> {
       registerNPCs();
