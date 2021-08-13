@@ -22,6 +22,7 @@ import gg.eris.lobby.npcs.impl.ErisUhcLobbyNpc;
 import gg.eris.lobby.npcs.impl.ErisWebsiteLobbyNpc;
 import gg.eris.lobby.scoreboard.ScoreboardListener;
 import java.util.List;
+import java.util.Set;
 import lombok.Getter;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.DespawnReason;
@@ -36,6 +37,9 @@ import org.spigotmc.SpigotConfig;
 
 public final class ErisLobby extends JavaPlugin {
 
+  private static final String LIVE_UHC_SET = "custom_craft_uhc_games";
+  private static final int SERVER_COUNT = 5;
+
   private static final String WHITELIST_MESSAGE
       = CC.GOLD.bold() + "(!) " + CC.GOLD + "Eris is in maintenance mode.";
 
@@ -44,6 +48,9 @@ public final class ErisLobby extends JavaPlugin {
 
   @Getter
   private List<ErisBaseLobbyNpc> npcs;
+
+  @Getter
+  private volatile String uhcServerName;
 
   @Override
   public void onEnable() {
@@ -71,7 +78,7 @@ public final class ErisLobby extends JavaPlugin {
     commandManager.registerCommands(
         new SpawnLocationCommand(this, lobbyProtectionListener),
         new PlaceNPCCommand(this),
-        new UhcCommand()
+        new UhcCommand(this)
     );
 
     tablistController.setHeader(CC.YELLOW + "You are playing on " + CC.GOLD.bold() + "ERIS.GG");
@@ -83,11 +90,23 @@ public final class ErisLobby extends JavaPlugin {
           CC.GRAY + player.getDisplayName() : rank.getColor().getColor() +
           "[" + rank.getRawDisplay() + "] " + CC.WHITE + player.getDisplayName();
     });
+
     Bukkit.getScheduler().runTaskLater(this, () -> {
       registerNPCs();
       spawnSavedNPCs();
       SpigotConfig.whitelistMessage = WHITELIST_MESSAGE;
     }, 20L);
+
+    Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> {
+      if (this.uhcServerName == null) {
+        getNewServer();
+      } else {
+        Set<String> active = this.commons.getRedisWrapper().querySet(LIVE_UHC_SET);
+        if (active.contains(this.uhcServerName)) {
+          getNewServer();
+        }
+      }
+    }, 0, 20);
   }
 
   @Override
@@ -124,4 +143,17 @@ public final class ErisLobby extends JavaPlugin {
       }
     }
   }
+
+  private void getNewServer() {
+    Set<String> active = this.commons.getRedisWrapper().querySet(LIVE_UHC_SET);
+    for (int i = 0; i < SERVER_COUNT; i++) {
+      String name = "uhc-" + i;
+      if (!active.contains(name)) {
+        this.uhcServerName = name;
+        return;
+      }
+    }
+  }
+
+
 }

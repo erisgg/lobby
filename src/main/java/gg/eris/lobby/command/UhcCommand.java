@@ -6,9 +6,14 @@ import gg.eris.commons.bukkit.command.CommandProvider;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.PlayerUtil;
+import gg.eris.lobby.ErisLobby;
 import gg.eris.lobby.ErisLobbyIdentifiers;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public final class UhcCommand implements CommandProvider {
+
+  private final ErisLobby plugin;
 
   @Override
   public Builder getCommand(CommandManager manager) {
@@ -23,7 +28,7 @@ public final class UhcCommand implements CommandProvider {
           TextType.INFORMATION,
           "Connecting you to <h>UHC</h>..."
       );
-      PlayerUtil.sendToServer(context.getSenderAsPlayer(), "uhc");
+      PlayerUtil.sendToServer(context.getSenderAsPlayer(), this.plugin.getUhcServerName());
     }, true);
   }
 }
