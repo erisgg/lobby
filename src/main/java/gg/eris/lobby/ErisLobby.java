@@ -50,7 +50,6 @@ public final class ErisLobby extends JavaPlugin {
       "uhc-4", "25514"
   );
 
-
   private static final String WHITELIST_MESSAGE
       = CC.GOLD.bold() + "(!) " + CC.GOLD + "Eris is in maintenance mode.";
 
@@ -160,7 +159,7 @@ public final class ErisLobby extends JavaPlugin {
     for (int i = 0; i < SERVER_COUNT; i++) {
       String name = "uhc-" + i;
       if (!active.contains(PORT_NAME_DATA.get(name))) {
-        Bukkit.getLogger().info("New server name is now " + name);
+        Bukkit.getLogger().info("Now directing players to " + name);
         this.uhcServerName = name;
         return;
       }
