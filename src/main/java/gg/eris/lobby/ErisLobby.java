@@ -106,7 +106,7 @@ public final class ErisLobby extends JavaPlugin {
           getNewServer();
         }
       }
-    }, 0, 20);
+    }, 0, 2);
   }
 
   @Override
