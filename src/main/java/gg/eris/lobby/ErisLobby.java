@@ -22,6 +22,7 @@ import gg.eris.lobby.npcs.impl.ErisUhcLobbyNpc;
 import gg.eris.lobby.npcs.impl.ErisWebsiteLobbyNpc;
 import gg.eris.lobby.scoreboard.ScoreboardListener;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import lombok.Getter;
 import net.citizensnpcs.api.CitizensAPI;
@@ -39,6 +40,14 @@ public final class ErisLobby extends JavaPlugin {
 
   private static final String LIVE_UHC_SET = "custom_craft_uhc_games";
   private static final int SERVER_COUNT = 5;
+
+  private static final Map<String, String> NAME_TO_PORT = Map.of(
+      "uhc-0", "25510",
+      "uhc-1", "25511",
+      "uhc-2", "25512",
+      "uhc-3", "25513",
+      "uhc-4", "25514"
+  );
 
   private static final String WHITELIST_MESSAGE
       = CC.GOLD.bold() + "(!) " + CC.GOLD + "Eris is in maintenance mode.";
@@ -102,7 +111,7 @@ public final class ErisLobby extends JavaPlugin {
         getNewServer();
       } else {
         Set<String> active = this.commons.getRedisWrapper().querySet(LIVE_UHC_SET);
-        if (active.contains(this.uhcServerName)) {
+        if (active.contains(NAME_TO_PORT.get(this.uhcServerName))) {
           getNewServer();
         }
       }
@@ -148,7 +157,7 @@ public final class ErisLobby extends JavaPlugin {
     Set<String> active = this.commons.getRedisWrapper().querySet(LIVE_UHC_SET);
     for (int i = 0; i < SERVER_COUNT; i++) {
       String name = "uhc-" + i;
-      if (!active.contains(name)) {
+      if (!active.contains(NAME_TO_PORT.get(name))) {
         this.uhcServerName = name;
         return;
       }
