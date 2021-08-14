@@ -9,6 +9,7 @@ import gg.eris.commons.bukkit.rank.RankRegistry;
 import gg.eris.commons.bukkit.tablist.TablistController;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.lobby.command.PlaceNPCCommand;
+import gg.eris.lobby.command.SetDirectingCommand;
 import gg.eris.lobby.command.SpawnLocationCommand;
 import gg.eris.lobby.command.UhcCommand;
 import gg.eris.lobby.listener.ItemListener;
@@ -26,6 +27,7 @@ import gg.eris.lobby.scoreboard.ScoreboardListener;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
+import lombok.Setter;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.DespawnReason;
 import net.citizensnpcs.api.npc.NPC;
@@ -60,6 +62,7 @@ public final class ErisLobby extends JavaPlugin {
   private List<ErisBaseLobbyNpc> npcs;
 
   @Getter
+  @Setter
   private volatile String uhcServerName;
 
   @Override
@@ -88,7 +91,8 @@ public final class ErisLobby extends JavaPlugin {
     commandManager.registerCommands(
         new SpawnLocationCommand(this, lobbyProtectionListener),
         new PlaceNPCCommand(this),
-        new UhcCommand(this)
+        new UhcCommand(this),
+        new SetDirectingCommand(this)
     );
 
     tablistController.setHeader(CC.YELLOW + "You are playing on " + CC.GOLD.bold() + "ERIS.GG");

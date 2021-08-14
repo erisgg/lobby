@@ -14,6 +14,8 @@ public class ErisLobbyIdentifiers {
   public static final Identifier NPC_PLACEMENT_PERMISSION = permission("placenpc",
       PermissionGroup.HIGHER_STAFF);
   public static final Identifier UHC_PERMISSION = permission("uhc", PermissionGroup.ALL);
+  public static final Identifier SET_DIRECTING_PERMISSION = permission("setdirecting",
+      PermissionGroup.OWNER_DEVELOPER);
 
   private static Identifier permission(String name, PermissionGroup group) {
     return Permission.ofDefault(PermissionRegistry.get(), name, group).getIdentifier();

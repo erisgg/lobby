@@ -13,7 +13,7 @@ public final class ScoreboardListener implements Listener {
 
   private final CommonsScoreboard scoreboard;
 
-  private int networkCount;
+  private volatile int networkCount;
 
   public ScoreboardListener(ErisLobby plugin) {
     this.scoreboard = plugin.getCommons().getScoreboardController().newScoreboard(
